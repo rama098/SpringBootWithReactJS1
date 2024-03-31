@@ -1,24 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
-
+import axios from "axios";
+import {useState} from 'react'
 function App() {
+   const handleGetButtonClick= async ()=>
+     {
+      const resp=await axios.get("http://localhost:8080/testget")
+      console.log(resp);
+     
+     }
+     const data="React Data"
+     const handlePostButtonClick= async ()=>
+     {
+      const resp1=await axios.post("http://localhost:8080/testpost",{data})
+      console.log(resp1);
+     
+     }
+
+
+     const [formData,setFormData]=useState('')
+     const handleFormButtonClick= async ()=>
+     {
+      const resp1=await axios.post("http://localhost:8080/testForm",{formData})
+      console.log(resp1);
+     
+     }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <>
+     <button onClick={handleGetButtonClick}>Test Get</button>
+     <br/><br/>
+     <button onClick={handlePostButtonClick}>Test Post</button>
+
+     <br/><br/>
+
+     <form onSubmit={handleFormButtonClick}>
+       <input type="text" name='formData' value={formData} onChange={(e)=>setFormData(e.target.value)}/>
+       
+       <input type="submit" value="Test Form"/>
+     </form>
+     </>
   );
 }
 
